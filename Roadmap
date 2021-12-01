@@ -1,0 +1,10 @@
+1. data pre-processing
+
+  * importing libraries
+  * importing data
+  * Missing data
+  * Encoding data
+  * Splitting data
+  * Feature scaling
+  
+2. Regression

@@ -1,0 +1,3 @@
+standardization =  (x - mean(x))/standard deviation(x)
+
+normalization = (x - min(x))/(max(x) - min(x))
