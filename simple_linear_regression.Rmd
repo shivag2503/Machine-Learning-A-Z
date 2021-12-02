@@ -1,0 +1,83 @@
+---
+title: "Simple Linear Regression"
+output: html_notebook
+---
+
+## Importing libraries
+
+```{r}
+library(caTools)
+library(ggplot2)
+```
+
+## Importing the dataset
+
+```{r}
+data <- read.csv(file = "A://Machine-Learning-A-Z/data/Salary_Data.csv")
+```
+
+```{r}
+View(data)
+```
+
+## Splitting the dataset into training set and test set
+
+```{r}
+set.seed(seed = 123)
+split <- sample.split(Y = data$Salary, SplitRatio = 2/3)
+```
+
+```{r}
+training_set <- subset(x = data, split == T)
+test_set <- subset(x = data, split == F)
+```
+
+## Fitting simple linear regression to the training set
+
+```{r}
+regressor <- lm(formula = Salary ~ YearsExperience,
+                data = training_set)
+```
+
+```{r}
+summary(regressor)
+```
+
+## Predicting the test set result
+
+```{r}
+y_pred <- predict(object = regressor,
+                  newdata = test_set)
+```
+
+## Visualizing the training set results
+
+```{r}
+ggplot() +
+  geom_point(aes(x = training_set$YearsExperience, y = training_set$Salary),
+             colour = 'red') +
+  stat_smooth(mapping = aes(x = training_set$YearsExperience, y = training_set$Salary),
+              method = 'lm',
+              colour = 'blue') +
+  ggtitle("Salary vs Experience (Training Set)") +
+  xlab("Years of Experience") +
+  ylab("Salary")
+```
+
+## Visualizing the test set results
+
+```{r}
+ggplot() +
+  geom_point(aes(x = test_set$YearsExperience, y = test_set$Salary),
+             colour = 'red') +
+  stat_smooth(mapping = aes(x = test_set$YearsExperience, y = test_set$Salary),
+              method = 'lm',
+              colour = 'blue') +
+  ggtitle("Salary vs Experience (Test Set)") +
+  xlab("Years of Experience") +
+  ylab("Salary")
+```
+
+
+
+

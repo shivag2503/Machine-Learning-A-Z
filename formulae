@@ -1,3 +1,7 @@
 standardization =  (x - mean(x))/standard deviation(x)
 
 normalization = (x - min(x))/(max(x) - min(x))
+
+Simple Linear Regression:
+
+y = b0 + b1 * x
