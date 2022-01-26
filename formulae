@@ -5,3 +5,23 @@ normalization = (x - min(x))/(max(x) - min(x))
 Simple Linear Regression:
 
 y = b0 + b1 * x
+
+Multiple Linear Regression:
+
+y = b0 + b1 * x1 + b2 * x2 + ..... + bn * xn 
+
+Assumptions of a Linear Regression:
+
+1. Linerity
+2. Homoscedasticity
+3. Multivariate normality
+4. Independence of errors
+5. Lack of multicollinearity
+
+5 methods of building models:
+
+1. All-in
+2. Backward elimination
+3. Forward selection
+4. Bidirectional elimination
+5. Score comparison 

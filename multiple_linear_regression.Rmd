@@ -1,0 +1,103 @@
+---
+title: "Multiple Linear Regression"
+output: html_notebook
+---
+
+## Importing libraries
+
+```{r}
+library(caTools)
+```
+
+## Importing the dataset
+
+```{r}
+data <- read.csv(file = "A://Machine-Learning-A-Z/data/50_Startups.csv")
+```
+
+```{r}
+View(data)
+```
+
+## Taking care of missing values
+
+```{r}
+# Is there any missing values
+colSums(is.na(data))
+```
+
+## Encoding categorical variable
+
+```{r}
+# State
+
+data$State <- factor(x = data$State, 
+                       levels = c("New York", "California", "Florida"),
+                       labels = c(1, 2, 3))
+```
+
+## Splitting the dataset into training set and test set
+
+```{r}
+set.seed(seed = 123)
+split <- sample.split(Y = data$Profit, SplitRatio = 0.8)
+```
+
+```{r}
+training_set <- subset(x = data, split == T)
+test_set <- subset(x = data, split == F)
+```
+
+## Fitting simple linear regression to the training set
+
+```{r}
+regressor <- lm(formula = Profit ~ ., data = training_set)
+```
+
+```{r}
+summary(regressor)
+```
+
+## Predicting the test set result
+
+```{r}
+y_pred <- predict(object = regressor,
+                  newdata = test_set)
+```
+
+## Building the optimal modal using Backward Elimination
+
+```{r}
+regressor <- lm(formula = Profit ~ R.D.Spend + Administration + Marketing.Spend + State, data = data)
+```
+
+```{r}
+summary(regressor)
+```
+
+
+```{r}
+regressor <- lm(formula = Profit ~ R.D.Spend + Administration + Marketing.Spend, data = data)
+```
+
+```{r}
+summary(regressor)
+```
+
+
+```{r}
+regressor <- lm(formula = Profit ~ R.D.Spend + Marketing.Spend, data = data)
+```
+
+```{r}
+summary(regressor)
+```
+
+
+```{r}
+regressor <- lm(formula = Profit ~ R.D.Spend, data = data)
+```
+
+```{r}
+summary(regressor)
+```
