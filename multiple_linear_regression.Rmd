@@ -48,7 +48,7 @@ training_set <- subset(x = data, split == T)
 test_set <- subset(x = data, split == F)
 ```
 
-## Fitting simple linear regression to the training set
+## Fitting multiple linear regression to the training set
 
 ```{r}
 regressor <- lm(formula = Profit ~ ., data = training_set)

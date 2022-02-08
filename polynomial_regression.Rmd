@@ -1,0 +1,118 @@
+---
+title: "Polynomial Regression"
+output: html_notebook
+---
+
+## Importing libraries
+
+```{r}
+#library(caTools)
+library(ggplot2)
+```
+
+## Importing the dataset
+
+```{r}
+data <- read.csv(file = "A://Machine-Learning-A-Z/data/Position_Salaries.csv")
+```
+
+```{r}
+data <- data[2:3]
+```
+
+## Splitting the dataset into training set and test set
+
+```{r}
+# set.seed(seed = 123)
+# split <- sample.split(Y = data$Salary, SplitRatio = 0.8)
+```
+
+```{r}
+# training_set <- subset(x = data, split == T)
+# test_set <- subset(x = data, split == F)
+```
+
+## Fitting simple linear regression to the training set
+
+```{r}
+lin_reg <- lm(formula = Salary ~ Level, data = data)
+```
+
+```{r}
+summary(lin_reg)
+```
+
+## Fitting polynomial linear regression to the training set
+
+```{r}
+data$Level2 <- data$Level^2
+data$Level3 <- data$Level^3
+data$Level4 <- data$Level^4
+poly_reg <- lm(formula = Salary ~ ., data = data)
+```
+
+```{r}
+summary(poly_reg)
+```
+
+
+## Visualizing the linear regression results
+
+```{r}
+ggplot() +
+  geom_point(aes(x = data$Level, y = data$Salary),
+             color = "red") +
+  geom_line(aes(x = data$Level, y = predict(lin_reg, newdata = data)),
+             color = "blue") +
+  ggtitle("Truth or Bluff (Linear Regression)") +
+  xlab("Level") +
+  ylab("Salary")
+```
+
+## Visualizing the polynomial regression results
+
+```{r}
+ggplot() +
+  geom_point(aes(x = data$Level, y = data$Salary),
+             color = "red") +
+  geom_line(aes(x = data$Level, y = predict(poly_reg, newdata = data)),
+             color = "blue") +
+  ggtitle("Truth or Bluff (Polynomial Regression)") +
+  xlab("Level") +
+  ylab("Salary")
+```
+
+## Predicting a new result with Linear Regression
+
+```{r}
+y_pred <- predict(lin_reg, newdata = data.frame(Level = 6.5))
+y_pred
+```
+
+## Predicting a new result with Polynomial Regression
+
+```{r}
+y_pred <- predict(poly_reg, newdata = data.frame(Level = 6.5,
+                                                 Level2 = 6.5^2,
+                                                 Level3 = 6.5^3,
+                                                 Level4 = 6.5^4))
+y_pred
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
